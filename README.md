@@ -4,7 +4,7 @@ L@ME is a free software for processing and analyzing electronic messages, develo
 
 It allows you to:
 
-* Open locally (directories of) electronic messages (formats: EML, EMLX, MBX, MBX, MBOX, MBOXRD) or download messages located on a PhpBB forum or import an [Extractify json file](https://github.com/fredericvergnaud/extractify).
+* Open locally (directories of) electronic messages (formats: EML, EMLX, MBX, MBX, MBOX, MBOXRD) or download messages located on a PhpBB forum or import forums / topics messages from an [Extractify json file](https://github.com/fredericvergnaud/extractify).
 * View and obtain data for each message, author and discussion.
 * Group discussions according to several parameters: the characters of the subject using Levenshtein's distance, the number of days between two similar subjects or the number of messages between two similar subjects.
 * Clean up authors and topics of messages.
