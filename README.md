@@ -16,11 +16,33 @@ It allows you to:
 
 What he doesn't do: everything else!
 
-**Installation**
+**Required environment**
+
+* JAVA 8
+* Windows, Mac or Linux platform
+* Internet access (for forum messages)
+
+**Download**
 
  1. Go to [Releases](https://github.com/fredericvergnaud/lame/releases) to download the latest version (jar file)
  2. Double click the jar file to execute L@ME
  
+ **Execution**
+
+L@ME is delivered as a JAVA.jar executable file (until better...)
+
+* Execute with the default memory value of the JVM (Java Virtual Machine) set to 256 MB
+
+ Double-click on the file to execute it.
+ 
+* Execution with an increase in the memory of the JVM
+
+ In Console mode, execute the command line :
+ 
+    `java -Xmx512m -jar L@ME_beta_1.0.8.2.jar`
+    
+where 512 is the size in MB of the JVM memory. You can therefore increase it as you wish, depending on the RAM installed on your computer.
+
  **Usage**
  
  [Go to the wiki](https://github.com/fredericvergnaud/lame/wiki) to see how to use L@ME.
