@@ -29,7 +29,7 @@ What he doesn't do: everything else!
  
  **Execution**
 
-L@ME is delivered as a JAVA.jar executable file (until better...)
+L@ME is delivered as a JAVA .jar executable file (until better...)
 
 * Execute with the default memory value of the JVM (Java Virtual Machine) set to 256 MB
 
