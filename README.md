@@ -41,7 +41,7 @@ L@ME is delivered as a JAVA .jar executable file (until better...)
  
     `java -Xmx512m -jar L@ME_x.x.x.jar`
     
-where `512` is the size in MB of the JVM memory. You can therefore increase it as you wish, depending on the RAM installed on your computer.
+where `512` is the size in MB of the JVM memory and `L@ME_x.x.x.jar` the downloaded L@ME jar file. You can therefore increase it as you wish, depending on the RAM installed on your computer.
 
  **Usage**
  
