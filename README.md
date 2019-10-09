@@ -39,7 +39,7 @@ L@ME is delivered as a JAVA .jar executable file (until better...)
 
  In Console mode, execute the command line :
  
-    `java -Xmx512m -jar L@ME_beta_1.x.x.jar`
+    `java -Xmx512m -jar L@ME_x.x.x.jar`
     
 where `512` is the size in MB of the JVM memory. You can therefore increase it as you wish, depending on the RAM installed on your computer.
 
