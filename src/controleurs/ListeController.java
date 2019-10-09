@@ -304,7 +304,7 @@ public class ListeController {
 							bundleOperationsListe, activitesView, repertoire);
 					addMessagesFromExtractify.extractJsonData();
 					mapIdMessages = addMessagesFromExtractify.getNewMapIdMessages();
-				} else {
+				} else if (typeMessagesListeSelected == 2) {
 					AddMessagesFromBalLocale addMessagesFromBalLocale = new AddMessagesFromBalLocale(
 							bundleOperationsListe, activitesView, repertoire);
 					addMessagesFromBalLocale.displayDialog();
