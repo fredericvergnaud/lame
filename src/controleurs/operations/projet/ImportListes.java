@@ -23,12 +23,13 @@ public class ImportListes {
 
 	public void displayDialog() {
 		DialogPanelListeListes optPanel = new DialogPanelListeListes(setListes, bundleProjetController, "import");
-		int result = JOptionPane.showOptionDialog(null, optPanel, bundleProjetController.getString("txt_ImporterListes"), JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+		int result = JOptionPane.showOptionDialog(null, optPanel,
+				bundleProjetController.getString("txt_ImporterListes"), JOptionPane.OK_CANCEL_OPTION,
+				JOptionPane.QUESTION_MESSAGE, null, null, null);
 		if (result == JOptionPane.OK_OPTION) {
 			List<ListeModel> listListesSelected = optPanel.getListListesSelected();
-			 System.out
-			 .println("RemoveListe - action() : taille de listNumListesSelected = "
-			 + listListesSelected.size());
+			System.out.println(
+					"ImportListes - displayDialog() : taille de listListesSelected = " + listListesSelected.size());
 			setListListes(listListesSelected);
 		}
 	}

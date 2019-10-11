@@ -224,7 +224,7 @@ public class ListeController {
 				}
 				if (newNomListe != null) {
 					projetController.getProjetCharge().addListe(newNomListe, e1.getValue());
-					notifyExtractData();					
+					projetController.getListeController().notifyExtractData();					
 				}
 			}
 		}

@@ -39,7 +39,8 @@ import controleurs.operations.liste.ajoutmessages.forum.FormatDate;
 public class MessageModel implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private int idConversation, idLocuteur;
-	private String numero, fichier, expediteur, mail, profilYahoo, groupPostYahoo, idGoogle, sujet, corps, identifiant, inReplyTo, inReplyToRegroupe, sujetTronque, cTransfertEncoding, cTypeMimeSubtype, cTypeCharset;
+	private String numero, fichier, expediteur, mail, profilYahoo, groupPostYahoo, idGoogle, sujet, corps, identifiant,
+			inReplyTo, inReplyToRegroupe, sujetTronque, cTransfertEncoding, cTypeMimeSubtype, cTypeCharset;
 	private Date dateUS;
 	private Set<String> setReferences;
 	private boolean mbx = false;
@@ -195,7 +196,7 @@ public class MessageModel implements Serializable {
 	public void setfStatDateRegistreredLocuteur(Date fStatDateRegistreredLocuteur) {
 		this.fStatDateRegistreredLocuteur = fStatDateRegistreredLocuteur;
 	}
-	
+
 	public void setfStatDateRegistreredLocuteur(String sFStatDateRegistreredLocuteur) {
 		FormatDate fd = new FormatDate(sFStatDateRegistreredLocuteur);
 		Date dDateParseUS = fd.getDateFormatted();
@@ -257,7 +258,7 @@ public class MessageModel implements Serializable {
 	public void setDateUS(Date dateUS) {
 		this.dateUS = dateUS;
 	}
-	
+
 	public String getNumero() {
 		return numero;
 	}
@@ -281,7 +282,7 @@ public class MessageModel implements Serializable {
 	public void setInReplyTo(String inReplyTo) {
 		this.inReplyTo = inReplyTo;
 	}
-	
+
 	public String getInReplyToRegroupe() {
 		return inReplyToRegroupe;
 	}
@@ -305,7 +306,7 @@ public class MessageModel implements Serializable {
 	public void setExpediteur(String expediteur) {
 		this.expediteur = expediteur;
 	}
-	
+
 	public String getText() {
 		return corps;
 	}
@@ -319,7 +320,7 @@ public class MessageModel implements Serializable {
 	}
 
 	public String getCorps() {
-		System.out.println("MessageModel - getCorps() : getFichier() = "+getFichier());
+		System.out.println("MessageModel - getCorps() : getFichier() = " + getFichier());
 		if (!getFichier().equals("forum")) {
 			// System.out.println("Message : content-transfert-encoding = "
 			// + cTransfertEncoding + " | cTypeMimeSubtype = "
@@ -367,7 +368,7 @@ public class MessageModel implements Serializable {
 						source.close();
 					}
 				} catch (FileNotFoundException e1) {
-					corps = "Fichier non trouvé / File not found";
+					corps = "Fichier non trouvé  / File not found : " + getFichier();
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -398,7 +399,7 @@ public class MessageModel implements Serializable {
 						source.close();
 					}
 				} catch (FileNotFoundException e1) {
-					corps = "Fichier non trouvé / File not found";
+					corps = "Fichier non trouvé / File not found : " + getFichier();
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -653,10 +654,12 @@ public class MessageModel implements Serializable {
 			line = line.replace("\n", "");
 			// System.out.println("line = " + line);
 			String newLine = "";
-			if (line.startsWith("|") || line.startsWith("From:") || line.startsWith("From :") || line.startsWith("De :") || line.startsWith("Date:") || line.startsWith("Date :")
-					|| line.startsWith("To:") || line.startsWith("To :") || line.startsWith("à:") || line.startsWith("à :") || line.startsWith("Subject:") || line.startsWith("Subject :")
-					|| line.startsWith("Objet:") || line.startsWith("Objet :") || line.startsWith("Répondre à :") || line.indexOf("wrote") != -1 || line.indexOf("a écrit") != -1
-					|| line.indexOf("@", 1) != -1) {
+			if (line.startsWith("|") || line.startsWith("From:") || line.startsWith("From :") || line.startsWith("De :")
+					|| line.startsWith("Date:") || line.startsWith("Date :") || line.startsWith("To:")
+					|| line.startsWith("To :") || line.startsWith("à:") || line.startsWith("à :")
+					|| line.startsWith("Subject:") || line.startsWith("Subject :") || line.startsWith("Objet:")
+					|| line.startsWith("Objet :") || line.startsWith("Répondre à :") || line.indexOf("wrote") != -1
+					|| line.indexOf("a écrit") != -1 || line.indexOf("@", 1) != -1) {
 				newLine = "*** " + i + " ***";
 				i++;
 			} else
@@ -665,7 +668,8 @@ public class MessageModel implements Serializable {
 			// System.out.println("newLine = " + newLine);
 			newCorpsSsOriginalMessage += newLine + "\n";
 		}
-		// System.out.println("MessageModel - getSsOriginalMessage : newCorpsSsOriginalMessage = \n"
+		// System.out.println("MessageModel - getSsOriginalMessage :
+		// newCorpsSsOriginalMessage = \n"
 		// + newCorpsSsOriginalMessage);
 		newCorpsSsOriginalMessage = newCorpsSsOriginalMessage.trim();
 		if (newCorpsSsOriginalMessage.indexOf("---") != -1) {
@@ -721,7 +725,8 @@ public class MessageModel implements Serializable {
 
 	public String getTextSsHTML(String html) {
 		String corpsSsHTML = null;
-		if (html.indexOf("<br>") != -1 || html.indexOf("<div>") != -1 || html.indexOf("<BR>") != -1 || html.indexOf("<DIV>") != -1) {
+		if (html.indexOf("<br>") != -1 || html.indexOf("<div>") != -1 || html.indexOf("<BR>") != -1
+				|| html.indexOf("<DIV>") != -1) {
 			html = html.replaceAll("(?i)<br[^>]*>", "br2n");
 			Jsoup.parse(html);
 			corpsSsHTML = html.replaceAll("br2n", "\n");

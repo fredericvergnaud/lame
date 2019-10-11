@@ -443,7 +443,9 @@ public class ProjetController {
 								newNumeroListe = ((SortedSet<ListeModel>) projet.getSetListes()).last().getNumero() + 1;
 							liste.setNumero(newNumeroListe);
 							projet.addListe(liste);
-							projet.setNewCumul();
+							notifyListeSelected(newNumeroListe);
+							getListeController().notifyExtractData();
+							projet.setNewCumul();							
 							activitesView.appendTxtArea(
 									bundleProjetController.getString("txt_Liste") + " " + liste.getNom() + " "
 											+ bundleProjetController.getString("txt_ListeImportationSucces") + "\n");

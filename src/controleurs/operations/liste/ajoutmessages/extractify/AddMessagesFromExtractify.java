@@ -583,13 +583,14 @@ public class AddMessagesFromExtractify {
 
 		public String getSuffixSelectedItem() {
 			String suffix = "";
-			if (getName().indexOf(bundleOperationsListe.getString("txt_Auteur")) != -1)
+			String propertyName = getName();
+			if (propertyName.endsWith(bundleOperationsListe.getString("txt_Auteur")))
 				suffix = " (" + bundleOperationsListe.getString("txt_AuteurMin") + ")";
-			else if (getName().indexOf(bundleOperationsListe.getString("txt_Message")) != -1)
+			else if (propertyName.endsWith(bundleOperationsListe.getString("txt_Message")))
 				suffix = " (" + bundleOperationsListe.getString("txt_MessageMin") + ")";
-			else if (getName().indexOf(bundleOperationsListe.getString("txt_Topic")) != -1)
+			else if (propertyName.endsWith(bundleOperationsListe.getString("txt_Topic")))
 				suffix = " (" + bundleOperationsListe.getString("txt_TopicMin") + ")";
-			else if (getName().indexOf(bundleOperationsListe.getString("txt_Forum")) != -1)
+			else if (propertyName.endsWith(bundleOperationsListe.getString("txt_Forum")))
 				suffix = " (" + bundleOperationsListe.getString("txt_ForumMin") + ")";
 			return getValue() + suffix;
 		}

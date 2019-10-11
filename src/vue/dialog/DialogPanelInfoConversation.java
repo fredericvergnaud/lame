@@ -4,6 +4,7 @@ import java.awt.Component;
 import java.awt.Font;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ResourceBundle;
 
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
@@ -13,9 +14,11 @@ import modeles.ConversationModel;
 public class DialogPanelInfoConversation extends JPanel {
 
 	private ConversationModel conversation;
+	private ResourceBundle bundleFilsListe;
 	
-	public DialogPanelInfoConversation(ConversationModel conversation) {
+	public DialogPanelInfoConversation(ConversationModel conversation, ResourceBundle bundleFilsListe) {
 		this.conversation = conversation;
+		this.bundleFilsListe = bundleFilsListe;
 		createGui();
 	}
 
@@ -29,7 +32,7 @@ public class DialogPanelInfoConversation extends JPanel {
 		JPanel panelSujet = new JPanel();
 		panelSujet.setLayout(new BoxLayout(panelSujet, BoxLayout.X_AXIS));
 		panelSujet.setAlignmentX(Component.LEFT_ALIGNMENT);
-		JLabel labSujet = new JLabel("Sujet : ");
+		JLabel labSujet = new JLabel(bundleFilsListe.getString("txt_Sujet") + " : ");
 		labSujet.setFont(gras);
 		JLabel txtSujet = new JLabel(String.valueOf(conversation.getSujetPremierMessage()));
 		panelSujet.add(labSujet);
@@ -40,7 +43,7 @@ public class DialogPanelInfoConversation extends JPanel {
 		JPanel panelLanceur = new JPanel();
 		panelLanceur.setLayout(new BoxLayout(panelLanceur, BoxLayout.X_AXIS));
 		panelLanceur.setAlignmentX(Component.LEFT_ALIGNMENT);
-		JLabel labLanceur = new JLabel("Lanceur : ");
+		JLabel labLanceur = new JLabel(bundleFilsListe.getString("txt_Lanceur") + " : ");
 		labLanceur.setFont(gras);
 		JLabel txtLanceur = new JLabel(conversation.getLanceur());
 		panelLanceur.add(labLanceur);
@@ -51,7 +54,7 @@ public class DialogPanelInfoConversation extends JPanel {
 		JPanel panelDebut = new JPanel();
 		panelDebut.setLayout(new BoxLayout(panelDebut, BoxLayout.X_AXIS));
 		panelDebut.setAlignmentX(Component.LEFT_ALIGNMENT);
-		JLabel labDebut = new JLabel("Début : ");
+		JLabel labDebut = new JLabel(bundleFilsListe.getString("txt_Debut") + " : ");
 		labDebut.setFont(gras);
 		JLabel txtDebut = new JLabel((conversation.getDateDebut() == null) ? "" : formatter.format(conversation.getDateDebut()));
 		panelDebut.add(labDebut);
@@ -62,7 +65,7 @@ public class DialogPanelInfoConversation extends JPanel {
 		JPanel panelFin = new JPanel();
 		panelFin.setLayout(new BoxLayout(panelFin, BoxLayout.X_AXIS));
 		panelFin.setAlignmentX(Component.LEFT_ALIGNMENT);
-		JLabel labFin = new JLabel("Fin : ");
+		JLabel labFin = new JLabel(bundleFilsListe.getString("txt_Fin") + " : ");
 		labFin.setFont(gras);
 		JLabel txtFin = new JLabel((conversation.getDateFin() == null) ? "" : formatter.format(conversation.getDateFin()));
 		panelFin.add(labFin);
@@ -73,7 +76,7 @@ public class DialogPanelInfoConversation extends JPanel {
 		JPanel panelDuree = new JPanel();
 		panelDuree.setLayout(new BoxLayout(panelDuree, BoxLayout.X_AXIS));
 		panelDuree.setAlignmentX(Component.LEFT_ALIGNMENT);
-		JLabel labDuree = new JLabel("Durée (jours) : ");
+		JLabel labDuree = new JLabel(bundleFilsListe.getString("txt_DureeJours") + " : ");
 		labDuree.setFont(gras);
 		JLabel txtDuree = new JLabel(String.valueOf(conversation.getDuree()));
 		panelDuree.add(labDuree);
@@ -84,7 +87,7 @@ public class DialogPanelInfoConversation extends JPanel {
 		JPanel panelMessages = new JPanel();
 		panelMessages.setLayout(new BoxLayout(panelMessages, BoxLayout.X_AXIS));
 		panelMessages.setAlignmentX(Component.LEFT_ALIGNMENT);
-		JLabel labMessages = new JLabel("Messages : ");
+		JLabel labMessages = new JLabel(bundleFilsListe.getString("txt_Messages") + " : ");
 		labMessages.setFont(gras);
 		JLabel txtMessages = new JLabel(String.valueOf(conversation.getNbreMessages()));
 		panelMessages.add(labMessages);
@@ -95,7 +98,7 @@ public class DialogPanelInfoConversation extends JPanel {
 		JPanel panelLocuteurs = new JPanel();
 		panelLocuteurs.setLayout(new BoxLayout(panelLocuteurs, BoxLayout.X_AXIS));
 		panelLocuteurs.setAlignmentX(Component.LEFT_ALIGNMENT);
-		JLabel labLocuteurs = new JLabel("Locuteurs : ");
+		JLabel labLocuteurs = new JLabel(bundleFilsListe.getString("txt_Locuteurs") + " : ");
 		labLocuteurs.setFont(gras);
 		JLabel txtLocuteurs = new JLabel(String.valueOf(conversation.getNbreLocuteurs()));
 		panelLocuteurs.add(labLocuteurs);
@@ -106,9 +109,9 @@ public class DialogPanelInfoConversation extends JPanel {
 		JPanel panelSc = new JPanel();
 		panelSc.setLayout(new BoxLayout(panelSc, BoxLayout.X_AXIS));
 		panelSc.setAlignmentX(Component.LEFT_ALIGNMENT);
-		JLabel labSc = new JLabel("Conversation collective : ");
+		JLabel labSc = new JLabel(bundleFilsListe.getString("txt_ConversationCollective") + " : ");
 		labSc.setFont(gras);
-		JLabel txtSc = new JLabel((conversation.isSc() == false) ? "Non" : "Oui");
+		JLabel txtSc = new JLabel((conversation.isSc() == false) ? bundleFilsListe.getString("txt_Non") : bundleFilsListe.getString("txt_Oui"));
 		panelSc.add(labSc);
 		panelSc.add(txtSc);
 
@@ -119,7 +122,7 @@ public class DialogPanelInfoConversation extends JPanel {
 			JPanel panelVues = new JPanel();
 			panelVues.setLayout(new BoxLayout(panelVues, BoxLayout.X_AXIS));
 			panelVues.setAlignmentX(Component.LEFT_ALIGNMENT);
-			JLabel labVues = new JLabel("Vues : ");
+			JLabel labVues = new JLabel(bundleFilsListe.getString("txt_Vues") + " : ");
 			labVues.setFont(gras);
 			JLabel txtVues = new JLabel(String.valueOf(conversation.getfNbreVues()));
 			panelVues.add(labVues);

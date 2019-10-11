@@ -102,10 +102,6 @@ public class ProjetModel implements Serializable {
 		return listeSelected;
 	}
 
-	// public ListeModel getNewListe() {
-	// return newListe;
-	// }
-
 	public ListeModel getListe(int numListeSelect) {
 		ListeModel listeToFind = null;
 		for (ListeModel liste : setListes) {
@@ -268,7 +264,7 @@ public class ProjetModel implements Serializable {
 
 	public void setNewListe(ListeModel newListe) {
 		this.newListe = newListe;
-		setListeSelected(this.newListe);
+		setListeSelected(newListe);
 	}
 
 	// // // // // // // // // // // // // // // // // // // // // // // // //

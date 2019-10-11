@@ -101,7 +101,7 @@ public class FilsListePanel extends ListeView implements TreeSelectionListener, 
 	private JSplitPane scrollSplitPane;
 	private FilsTreeModel filsTreeModel;
 	private TreePath treePathToSelect;
-	private ResourceBundle filsListe;
+	private ResourceBundle bundleFilsListe;
 	private int colIndexSorted = 999;
 	private boolean colIndexSortedAsc, colIndexSortedDesc;
 	private Map<String, MessageModel> mapIdMessages;
@@ -111,10 +111,10 @@ public class FilsListePanel extends ListeView implements TreeSelectionListener, 
 	private JButton bMois;
 	private DecimalFormat df = new DecimalFormat("0.00");
 
-	public FilsListePanel(ListeController listeController, ResourceBundle filsListe) {
+	public FilsListePanel(ListeController listeController, ResourceBundle bundleFilsListe) {
 		super(listeController);
 		format.setLenient(true);
-		this.filsListe = filsListe;
+		this.bundleFilsListe = bundleFilsListe;
 	}
 
 	public JPanel getPanel() {
@@ -251,7 +251,7 @@ public class FilsListePanel extends ListeView implements TreeSelectionListener, 
 		panelGaucheHaut.add(panel3, cHaut);
 
 		// JXTREETABLE
-		xTreeTable = new JXTreeTable(new FilsTreeModel(filsListe));
+		xTreeTable = new JXTreeTable(new FilsTreeModel(bundleFilsListe));
 		xTreeTable.addTreeSelectionListener(this);
 		xTreeTable.setRootVisible(false);
 		xTreeTable.setDefaultRenderer(Date.class, new DateRenderer());
@@ -300,7 +300,7 @@ public class FilsListePanel extends ListeView implements TreeSelectionListener, 
 						colIndexSortedDesc = false;
 					}
 				}
-				filsTreeModel = new FilsTreeModel(mapIdMessages, filsListe, colIndexClicked, colIndexSortedAsc);
+				filsTreeModel = new FilsTreeModel(mapIdMessages, bundleFilsListe, colIndexClicked, colIndexSortedAsc);
 				xTreeTable.setTreeTableModel(filsTreeModel);
 				applyRenderer();
 				if (xTreeTable.getSelectedRow() != 0 && messageSelected != null)
@@ -341,8 +341,8 @@ public class FilsListePanel extends ListeView implements TreeSelectionListener, 
 								Set<ConversationModel> setConversations = getListeController().getListeSelected().getSetConversations();
 								for (ConversationModel conversation : setConversations)
 									if (conversation.getId() == messageSelected.getIdConversation()) {
-										DialogPanelInfoConversation optPanel = new DialogPanelInfoConversation(conversation);
-										JOptionPane.showOptionDialog(null, optPanel, "Conversation numéro " + conversation.getId(), JOptionPane.CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null,
+										DialogPanelInfoConversation optPanel = new DialogPanelInfoConversation(conversation, bundleFilsListe);
+										JOptionPane.showOptionDialog(null, optPanel, bundleFilsListe.getString("txt_ConversationNumero") + conversation.getId(), JOptionPane.CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null,
 												options, options[0]);
 										break;
 									}
@@ -350,8 +350,8 @@ public class FilsListePanel extends ListeView implements TreeSelectionListener, 
 								Set<LocuteurModel> setLocuteurs = getListeController().getSetLocuteurs();
 								for (LocuteurModel locuteur : setLocuteurs)
 									if (locuteur.getId() == messageSelected.getIdLocuteur()) {
-										DialogPanelInfoLocuteur optPanel = new DialogPanelInfoLocuteur(locuteur);
-										JOptionPane.showOptionDialog(null, optPanel, "Locuteur " + locuteur.getNom(), JOptionPane.CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options,
+										DialogPanelInfoLocuteur optPanel = new DialogPanelInfoLocuteur(locuteur, bundleFilsListe);
+										JOptionPane.showOptionDialog(null, optPanel, bundleFilsListe.getString("txt_Locuteur") + " " + locuteur.getNom(), JOptionPane.CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options,
 												options[0]);
 										break;
 									}
@@ -401,7 +401,7 @@ public class FilsListePanel extends ListeView implements TreeSelectionListener, 
 		panelChk.setAlignmentX(Component.LEFT_ALIGNMENT);
 		panelChk.setBackground(new Color(248, 248, 248));
 
-		chkOriginalMessage = new JCheckBox(filsListe.getString("txt_EnleverMessageOrigine"));
+		chkOriginalMessage = new JCheckBox(bundleFilsListe.getString("txt_EnleverMessageOrigine"));
 		chkOriginalMessage.addItemListener(this);
 		chkOriginalMessage.setSelected(false);
 
@@ -448,7 +448,7 @@ public class FilsListePanel extends ListeView implements TreeSelectionListener, 
 		GridBagConstraints gbc4 = new GridBagConstraints();
 
 		// NOMBRE DE MESSAGES
-		box1 = new CustomStatBoxPanel("<html><center>" + filsListe.getString("txt_Messages") + "</center></html>", new ImageIcon(ToolBar.class.getResource("/images/icones/email_22.png")));
+		box1 = new CustomStatBoxPanel("<html><center>" + bundleFilsListe.getString("txt_Messages") + "</center></html>", new ImageIcon(ToolBar.class.getResource("/images/icones/email_22.png")));
 
 		gbc4.gridx = 0;
 		gbc4.gridy = 0;
@@ -456,7 +456,7 @@ public class FilsListePanel extends ListeView implements TreeSelectionListener, 
 		gbc4.anchor = GridBagConstraints.WEST;
 		panel4.add(box1, gbc4);
 
-		box2 = new CustomStatBoxPanel("<html><center>" + filsListe.getString("txt_Suivi") + "</center></html>", new ImageIcon(ToolBar.class.getResource("/images/icones/duree_22.png")));
+		box2 = new CustomStatBoxPanel("<html><center>" + bundleFilsListe.getString("txt_Suivi") + "</center></html>", new ImageIcon(ToolBar.class.getResource("/images/icones/duree_22.png")));
 		box2.getTxtLabel().setFont(new Font("sansserif", Font.BOLD, 13));
 		box2.resize(300, 105, 300, 45, 300, 60);
 
@@ -485,7 +485,7 @@ public class FilsListePanel extends ListeView implements TreeSelectionListener, 
 		GridBagConstraints gbcButtons = new GridBagConstraints();
 		gbcButtons.insets = new Insets(15, 0, 15, 0);
 
-		final JButton bTabMessages = new JButton("<html><center>" + filsListe.getString("txt_TableauMessages2Lignes") + "</center></html>");
+		final JButton bTabMessages = new JButton("<html><center>" + bundleFilsListe.getString("txt_TableauMessages2Lignes") + "</center></html>");
 		bTabMessages.setPreferredSize(new Dimension(130, 50));
 		bTabMessages.addActionListener(new ActionListener() {
 			@Override
@@ -494,7 +494,7 @@ public class FilsListePanel extends ListeView implements TreeSelectionListener, 
 				frameTabMessages.setLayout(new BorderLayout());
 				frameTabMessages.setContentPane(getListeController().getPanelTabMessagesListeView().getTabMessagesPanel());
 				frameTabMessages.setSize(new Dimension(700, 400));
-				frameTabMessages.setTitle(filsListe.getString("txt_TableauMessages"));
+				frameTabMessages.setTitle(bundleFilsListe.getString("txt_TableauMessages"));
 
 				frameTabMessages.addWindowListener(new WindowAdapter() {
 					@Override
@@ -507,7 +507,7 @@ public class FilsListePanel extends ListeView implements TreeSelectionListener, 
 			}
 		});
 
-		final JButton bTabLocuteurs = new JButton("<html><center>" + filsListe.getString("txt_TableauLocuteurs2Lignes") + "</center></html>");
+		final JButton bTabLocuteurs = new JButton("<html><center>" + bundleFilsListe.getString("txt_TableauLocuteurs2Lignes") + "</center></html>");
 		bTabLocuteurs.setPreferredSize(new Dimension(130, 50));
 		bTabLocuteurs.addActionListener(new ActionListener() {
 			@Override
@@ -516,7 +516,7 @@ public class FilsListePanel extends ListeView implements TreeSelectionListener, 
 				frameTabLocuteurs.setLayout(new BorderLayout());
 				frameTabLocuteurs.setContentPane(getListeController().getPanelTabLocuteursListeView().getTabLocuteursPanel());
 				frameTabLocuteurs.setSize(new Dimension(700, 400));
-				frameTabLocuteurs.setTitle(filsListe.getString("txt_TableauLocuteurs"));
+				frameTabLocuteurs.setTitle(bundleFilsListe.getString("txt_TableauLocuteurs"));
 
 				frameTabLocuteurs.addWindowListener(new WindowAdapter() {
 					@Override
@@ -529,7 +529,7 @@ public class FilsListePanel extends ListeView implements TreeSelectionListener, 
 			}
 		});
 
-		final JButton bTabConversations = new JButton("<html><center>" + filsListe.getString("txt_TableauConversations2Lignes") + "</center></html>");
+		final JButton bTabConversations = new JButton("<html><center>" + bundleFilsListe.getString("txt_TableauConversations2Lignes") + "</center></html>");
 		bTabConversations.setPreferredSize(new Dimension(130, 50));
 		bTabConversations.addActionListener(new ActionListener() {
 			@Override
@@ -538,7 +538,7 @@ public class FilsListePanel extends ListeView implements TreeSelectionListener, 
 				frameTabConversations.setLayout(new BorderLayout());
 				frameTabConversations.setContentPane(getListeController().getPanelTabConversationsListeView().getTabConversationsPanel());
 				frameTabConversations.setSize(new Dimension(700, 400));
-				frameTabConversations.setTitle(filsListe.getString("txt_TableauConversations"));
+				frameTabConversations.setTitle(bundleFilsListe.getString("txt_TableauConversations"));
 
 				frameTabConversations.addWindowListener(new WindowAdapter() {
 					@Override
@@ -589,7 +589,7 @@ public class FilsListePanel extends ListeView implements TreeSelectionListener, 
 		GridBagConstraints gbc5 = new GridBagConstraints();
 
 		// NOMBRE DE LOCUTEURS
-		box3 = new CustomStatBoxPanel(filsListe.getString("txt_NbreLocuteurs"), new ImageIcon(ToolBar.class.getResource("/images/icones/locuteurs_22.png")));
+		box3 = new CustomStatBoxPanel(bundleFilsListe.getString("txt_NbreLocuteurs"), new ImageIcon(ToolBar.class.getResource("/images/icones/locuteurs_22.png")));
 
 		gbc5.gridx = 0;
 		gbc5.gridy = 0;
@@ -597,7 +597,7 @@ public class FilsListePanel extends ListeView implements TreeSelectionListener, 
 		gbc5.anchor = GridBagConstraints.WEST;
 		panel5.add(box3, gbc5);
 
-		box4 = new CustomStatBoxPanel("<html><center>" + filsListe.getString("txt_NbreMoyenMessagesLocuteursMois") + "</center></html>", new ImageIcon(
+		box4 = new CustomStatBoxPanel("<html><center>" + bundleFilsListe.getString("txt_NbreMoyenMessagesLocuteursMois") + "</center></html>", new ImageIcon(
 				ToolBar.class.getResource("/images/icones/email_locuteurs_22.png")));
 		box4.resize(300, 105, 300, 45, 300, 60);
 
@@ -625,7 +625,7 @@ public class FilsListePanel extends ListeView implements TreeSelectionListener, 
 		GridBagConstraints gbc6 = new GridBagConstraints();
 
 		// PARAMETRE REGROUPEMENT DES MESSAGES
-		box5 = new CustomStatBoxPanel("<html><center>" + filsListe.getString("txt_ParamRegroupement") + "</center></html>", new ImageIcon(ToolBar.class.getResource("/images/icones/grouping_22.png")));
+		box5 = new CustomStatBoxPanel("<html><center>" + bundleFilsListe.getString("txt_ParamRegroupement") + "</center></html>", new ImageIcon(ToolBar.class.getResource("/images/icones/grouping_22.png")));
 		box5.getTxtLabel().setFont(new Font("sansserif", Font.BOLD, 10));
 		box5.resize(210, 105, 210, 45, 210, 60);
 
@@ -636,7 +636,7 @@ public class FilsListePanel extends ListeView implements TreeSelectionListener, 
 		panel6.add(box5, gbc6);
 
 		// NBRE DE CONVERSATIONS
-		box6 = new CustomStatBoxPanel("<html><center>" + filsListe.getString("txt_NbreConversations") + "</center></html>", new ImageIcon(
+		box6 = new CustomStatBoxPanel("<html><center>" + bundleFilsListe.getString("txt_NbreConversations") + "</center></html>", new ImageIcon(
 				ToolBar.class.getResource("/images/icones/conversations_22.png")));
 
 		gbc6.gridx = 1;
@@ -646,7 +646,7 @@ public class FilsListePanel extends ListeView implements TreeSelectionListener, 
 		panel6.add(box6, gbc6);
 
 		// NBRE MOYEN DE LOCUTEURS PAR CONVERSATIONS
-		box7 = new CustomStatBoxPanel("<html><center>" + filsListe.getString("txt_NbreMoyenLocuteursSujet") + "</center></html>", new ImageIcon(
+		box7 = new CustomStatBoxPanel("<html><center>" + bundleFilsListe.getString("txt_NbreMoyenLocuteursSujet") + "</center></html>", new ImageIcon(
 				ToolBar.class.getResource("/images/icones/conversations_locuteurs_22.png")));
 
 		gbc6.gridx = 2;
@@ -656,7 +656,7 @@ public class FilsListePanel extends ListeView implements TreeSelectionListener, 
 		panel6.add(box7, gbc6);
 
 		// NBRE MOYEN DE MESSAGES PAR CONVERSATIONS
-		box8 = new CustomStatBoxPanel("<html><center>" + filsListe.getString("txt_NbreMoyenMessagesSujet") + "</center></html>", new ImageIcon(
+		box8 = new CustomStatBoxPanel("<html><center>" + bundleFilsListe.getString("txt_NbreMoyenMessagesSujet") + "</center></html>", new ImageIcon(
 				ToolBar.class.getResource("/images/icones/conversations_messages_22.png")));
 
 		gbc6.gridx = 3;
@@ -684,7 +684,7 @@ public class FilsListePanel extends ListeView implements TreeSelectionListener, 
 		// panel7.setBorder(new TitledBorder(""));
 
 		// BOUTONS
-		final JButton bJours = new JButton(filsListe.getString("txt_ParJours"));
+		final JButton bJours = new JButton(bundleFilsListe.getString("txt_ParJours"));
 		bJours.addActionListener(new ActionListener() {
 
 			@Override
@@ -696,7 +696,7 @@ public class FilsListePanel extends ListeView implements TreeSelectionListener, 
 				clGraphs.show(panelGraphs, "PANEL_GRAPH_JOURS");
 			}
 		});
-		bMois = new JButton(filsListe.getString("txt_ParMois"));
+		bMois = new JButton(bundleFilsListe.getString("txt_ParMois"));
 		bMois.addActionListener(new ActionListener() {
 
 			@Override
@@ -709,7 +709,7 @@ public class FilsListePanel extends ListeView implements TreeSelectionListener, 
 				// bMois.requestFocus();
 			}
 		});
-		final JButton bAnnee = new JButton(filsListe.getString("txt_ParAnnees"));
+		final JButton bAnnee = new JButton(bundleFilsListe.getString("txt_ParAnnees"));
 
 		bAnnee.addActionListener(new ActionListener() {
 			@Override
@@ -723,7 +723,7 @@ public class FilsListePanel extends ListeView implements TreeSelectionListener, 
 			}
 		});
 
-		chart1 = new CustomMultiXYPlotBoxPanel("<html><center>" + filsListe.getString("txt_EvolutionMessages") + "</center></html>", new ImageIcon(
+		chart1 = new CustomMultiXYPlotBoxPanel("<html><center>" + bundleFilsListe.getString("txt_EvolutionMessages") + "</center></html>", new ImageIcon(
 				ToolBar.class.getResource("/images/icones/evolution_messages_22.png")));
 		GridBagConstraints gbcGraphPanel = chart1.getGbc();
 		panelGraphs = chart1.getGraphPanel();
@@ -806,7 +806,7 @@ public class FilsListePanel extends ListeView implements TreeSelectionListener, 
 		panel1.setLayout(new FlowLayout());
 		panel1.setAlignmentY(Component.CENTER_ALIGNMENT);
 
-		ChartNbreMessagesDate chartsNbreMessagesDate = new ChartNbreMessagesDate(mapIdMessages, typeGraph, filsListe);
+		ChartNbreMessagesDate chartsNbreMessagesDate = new ChartNbreMessagesDate(mapIdMessages, typeGraph, bundleFilsListe);
 		panel1.add(chartsNbreMessagesDate.getNbreMessagesAnneeChartPanel());
 
 		return panel1;
@@ -867,9 +867,9 @@ public class FilsListePanel extends ListeView implements TreeSelectionListener, 
 			Object userObject = ((DefaultMutableTreeTableNode) nodeSelected).getUserObject();
 			if (userObject instanceof MessageModel) {
 				messageSelected = (MessageModel) userObject;
-				labFrom.setText(filsListe.getString("txt_De") + " : ");
-				labSujet.setText(filsListe.getString("txt_Sujet") + " : ");
-				labDate.setText(filsListe.getString("txt_Date") + " : ");
+				labFrom.setText(bundleFilsListe.getString("txt_De") + " : ");
+				labSujet.setText(bundleFilsListe.getString("txt_Sujet") + " : ");
+				labDate.setText(bundleFilsListe.getString("txt_Date") + " : ");
 				txtFrom.setText(messageSelected.getExpediteur());
 				txtSujet.setText(messageSelected.getSujet());
 				txtDate.setText(format.format(messageSelected.getDateUS()));
@@ -1021,7 +1021,7 @@ public class FilsListePanel extends ListeView implements TreeSelectionListener, 
 			mapIdMessages = event.getNewMapIdMessages();
 			colIndexSorted = 999;
 			cl.show(cards, "PANEL_PLEIN");
-			filsTreeModel = new FilsTreeModel(event.getNewMapIdMessages(), filsListe, 2, true);
+			filsTreeModel = new FilsTreeModel(event.getNewMapIdMessages(), bundleFilsListe, 2, true);
 			xTreeTable.setTreeTableModel(filsTreeModel);
 			labFrom.setText("");
 			labSujet.setText("");
@@ -1040,14 +1040,14 @@ public class FilsListePanel extends ListeView implements TreeSelectionListener, 
 				DateTime dtFin = new DateTime(event.getFin());
 				Period period = new Period(dtDebut, dtFin, PeriodType.yearMonthDayTime());
 				box2.getTxtLabel().setText(
-						"<html><center>" + fmt.print(dtDebut) + " &raquo; " + fmt.print(dtFin) + "<br><font color=#c1c1c1>" + period.getYears() + " " + filsListe.getString("txt_Annees") + ", "
-								+ period.getMonths() + " " + filsListe.getString("txt_Mois") + ", " + period.getDays() + " " + filsListe.getString("txt_Jours") + ", " + period.getHours() + " "
-								+ filsListe.getString("txt_Heures") + "</font></center></html>");
+						"<html><center>" + fmt.print(dtDebut) + " &raquo; " + fmt.print(dtFin) + "<br><font color=#c1c1c1>" + period.getYears() + " " + bundleFilsListe.getString("txt_Annees") + ", "
+								+ period.getMonths() + " " + bundleFilsListe.getString("txt_Mois") + ", " + period.getDays() + " " + bundleFilsListe.getString("txt_Jours") + ", " + period.getHours() + " "
+								+ bundleFilsListe.getString("txt_Heures") + "</font></center></html>");
 			}
 			box3.getTxtLabel().setText(String.valueOf(event.getNewNbreLocuteurs()));
 			box4.getTxtLabel().setText(
 					"<html><center>" + String.valueOf(df.format(event.getNewNbreMoyenMessagesLocuteurMois())) + "<br><font style=color:#c1c1c1;font-size:9px>"
-							+ String.valueOf(event.getNewNbreLocuteursUnSeulMessage()) + " " + filsListe.getString("txt_NbreLocuteursUnSeulMessage") + "</font></center></html>");
+							+ String.valueOf(event.getNewNbreLocuteursUnSeulMessage()) + " " + bundleFilsListe.getString("txt_NbreLocuteursUnSeulMessage") + "</font></center></html>");
 			box5.getTxtLabel().setText("<html><center>" + event.getNewSParamConversations() + "</center></html>");
 			box6.getTxtLabel().setText(String.valueOf(event.getNewSetConversations().size()));
 			box7.getTxtLabel().setText(df.format(event.getNewNbreMoyenLocuteursDifferentsSujet()));
