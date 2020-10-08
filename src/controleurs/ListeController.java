@@ -436,6 +436,7 @@ public class ListeController {
 	public void notifyAddMapIdMessagesFromListes(List<ListeModel> listListesToMerge) {
 		for (ListeModel listeToMerge : listListesToMerge) {
 			System.out.println("taille de mapIdMessages à merger = " + listeToMerge.getMapIdMessage().size());
+			// Si les listes viennent de forum, les conversations peuvent avoir le même numéro -> renommage to do !			
 			listeSelected.addMapIdMessages(listeToMerge.getMapIdMessage());
 		}
 	}

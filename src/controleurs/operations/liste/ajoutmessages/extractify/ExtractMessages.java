@@ -65,92 +65,117 @@ public class ExtractMessages {
 						switch (matchingLameProperty) {
 						case "dateMessage":
 							date = (String) value;
-							fd = new FormatDate(date);
-							Date dDateParseUS = fd.getDateFormatted();
-							if (dDateParseUS != null)
-								message.setDateUS(dDateParseUS);
-							else
-								messageParseErrors.put(bundleOperationsListe.getString("txt_Message") + " > " + bundleOperationsListe.getString("txt_DateMessage"), bundleOperationsListe.getString("txt_DateFormatError"));
+							if (!date.equals("")) {
+								fd = new FormatDate(date);
+								Date dDateParseUS = fd.getDateFormatted();
+								if (dDateParseUS != null)
+									message.setDateUS(dDateParseUS);
+								else
+									messageParseErrors.put(bundleOperationsListe.getString("txt_Message") + " > " + bundleOperationsListe.getString("txt_DateMessage"), bundleOperationsListe.getString("txt_DateFormatError"));
+							}
 							break;
 						case "corpsMessage":
 							post = (String) value;
-							message.setCorps(post);
+							if (!post.equals("")) {
+								if (message.getText() != null)
+									message.setCorps(message.getText() + "\n " + "***** " + post);
+								else
+									message.setCorps(post);
+							}
 							break;
 						case "nomAuteur":
 							nom = (String) value;
-							message.setExpediteur(nom);
+							if (!nom.equals(""))
+								message.setExpediteur(nom);
 							break;
 						case "localisationAuteur":
 							location = (String) value;
-							message.setfStatLocationLocuteur(location);
+							if (!location.equals(""))
+								message.setfStatLocationLocuteur(location);
 							break;
 						case "nbreMessagesAuteur":
-							try {
-								nbrePosts = Integer.parseInt(((String) value).replaceAll(" ", ""));
-							} catch (NumberFormatException e) {
-								messageParseErrors.put(bundleOperationsListe.getString("txt_Auteur") + " > " + bundleOperationsListe.getString("txt_NbreMessagesAuteur"), bundleOperationsListe.getString("txt_NumberFormatError"));
-							} finally {
-								message.setfStatNbrePostsLocuteur(nbrePosts);
+							if (!((String)value).equals("")) {
+								try {
+									nbrePosts = Integer.parseInt(((String) value).replaceAll(" ", ""));
+								} catch (NumberFormatException e) {
+									messageParseErrors.put(bundleOperationsListe.getString("txt_Auteur") + " > " + bundleOperationsListe.getString("txt_NbreMessagesAuteur"), bundleOperationsListe.getString("txt_NumberFormatError"));
+								} finally {
+									message.setfStatNbrePostsLocuteur(nbrePosts);
+								}
 							}
 							break;
 						case "dateInscriptionAuteur":
 							dateRegistered = (String) value;
-							fd = new FormatDate(dateRegistered);
-							Date dDateRegistered = fd.getDateFormatted();
-							if (dDateRegistered != null)
-								message.setfStatDateRegistreredLocuteur(dateRegistered);
-							else 
-								messageParseErrors.put(bundleOperationsListe.getString("txt_Auteur") + " > " + bundleOperationsListe.getString("txt_DateInscriptionAuteur"), bundleOperationsListe.getString("txt_DateFormatError"));
+							if (!dateRegistered.equals("")) {
+								fd = new FormatDate(dateRegistered);
+								Date dDateRegistered = fd.getDateFormatted();
+								if (dDateRegistered != null)
+									message.setfStatDateRegistreredLocuteur(dateRegistered);
+								else 
+									messageParseErrors.put(bundleOperationsListe.getString("txt_Auteur") + " > " + bundleOperationsListe.getString("txt_DateInscriptionAuteur"), bundleOperationsListe.getString("txt_DateFormatError"));
+							}
 							break;
 						case "statutAuteur":
 							roleUser = (String) value;
-							message.setfRoleLocuteur(roleUser);
+							if (!roleUser.equals(""))
+								message.setfRoleLocuteur(roleUser);
 							break;
 						case "reputationAuteur":
-							try {
-								nbreEtoilesUser = Integer.parseInt((String) value);
-							} catch (NumberFormatException e) {
-								messageParseErrors.put(bundleOperationsListe.getString("txt_Auteur") + " > " + bundleOperationsListe.getString("txt_ReputationAuteur"), bundleOperationsListe.getString("txt_NumberFormatError"));
-							} finally {
-								message.setfStarsLocuteur(nbreEtoilesUser);
+							if (!((String)value).equals("")) {
+								try {
+									nbreEtoilesUser = Integer.parseInt((String) value);
+								} catch (NumberFormatException e) {
+									messageParseErrors.put(bundleOperationsListe.getString("txt_Auteur") + " > " + bundleOperationsListe.getString("txt_ReputationAuteur"), bundleOperationsListe.getString("txt_NumberFormatError"));
+								} finally {
+									message.setfStarsLocuteur(nbreEtoilesUser);
+								}
 							}
 							break;
 						case "genreAuteur":
 							gender = (String) value;
-							message.setfStatGenderLocuteur(gender);
+							if (!gender.equals(""))
+								message.setfStatGenderLocuteur(gender);
 							break;
 						case "ageAuteur":
-							try {
-								age = Integer.parseInt((String) value);
-							} catch (NumberFormatException e) {
-								messageParseErrors.put(bundleOperationsListe.getString("txt_Auteur") + " > " + bundleOperationsListe.getString("txt_AgeAuteur"), bundleOperationsListe.getString("txt_NumberFormatError"));
-							} finally {
-								message.setfStatAgeLocuteur(age);
+							if (!((String)value).equals("")) {
+								try {
+									age = Integer.parseInt((String) value);
+								} catch (NumberFormatException e) {
+									messageParseErrors.put(bundleOperationsListe.getString("txt_Auteur") + " > " + bundleOperationsListe.getString("txt_AgeAuteur"), bundleOperationsListe.getString("txt_NumberFormatError"));
+								} finally {
+									message.setfStatAgeLocuteur(age);
+								}
 							}
 							break;
 						case "signatureAuteur":
 							signature = (String) value;
-							message.setfStatSignatureLocuteur(signature);
+							if (!signature.equals(""))
+								message.setfStatSignatureLocuteur(signature);
 							break;
 						case "positionAuteur":
 							positionUser = (String) value;
-							message.setfStatPositionLocuteur(positionUser);
+							if (!positionUser.equals(""))
+								message.setfStatPositionLocuteur(positionUser);
 							break;
 						case "emailAuteur":
 							email = (String) value;
-							message.setfStatEMailLocuteur(email);
+							if (!email.equals(""))
+								message.setfStatEMailLocuteur(email);
 							break;
 						case "websiteAuteur":
 							website = (String) value;
-							message.setfStatWebsiteLocuteur(website);
+							if (!website.equals(""))
+								message.setfStatWebsiteLocuteur(website);
 							break;
 						case "activiteAuteur":
-							try {
-								activiyUser = Integer.parseInt((String) value);
-							} catch (NumberFormatException e) {
-								messageParseErrors.put(bundleOperationsListe.getString("txt_Auteur") + " > " + bundleOperationsListe.getString("txt_ActiviteAuteur"), bundleOperationsListe.getString("txt_NumberFormatError"));
-							} finally {
-								message.setfStatActivityLocuteur(activiyUser);
+							if (!((String)value).equals("")) {
+								try {
+									activiyUser = Integer.parseInt((String) value);
+								} catch (NumberFormatException e) {
+									messageParseErrors.put(bundleOperationsListe.getString("txt_Auteur") + " > " + bundleOperationsListe.getString("txt_ActiviteAuteur"), bundleOperationsListe.getString("txt_NumberFormatError"));
+								} finally {
+									message.setfStatActivityLocuteur(activiyUser);
+								}
 							}
 							break;
 						case "deeperLevel":
